@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1",
+    "coordinates": { "latitude": 6.5901051, "longitude": 0.4674691 },
+    "cardImage": "require(../../assets/images/image5.jpg)",
+    "title": "Parking Spot 1",
+    "location": "Location: XYZ",
+    "price": "$5/hr",
+    "distance": "4.5km",
+    "category": "NearBy Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "2",
+    "coordinates": { "latitude": 6.5911051, "longitude": 0.4684691 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 2",
+    "location": "ABC Parking",
+    "price": "$6/hr",
+    "distance": "10 miles",
+    "category": "Far Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "3",
+    "coordinates": { "latitude": 6.5851051, "longitude": 0.4504691 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 3",
+    "location": "Downtown Parking",
+    "price": "$4/hr",
+    "distance": "2.0km",
+    "category": "NearBy Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "4",
+    "coordinates": { "latitude": 6.5801051, "longitude": 0.4604691 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 4",
+    "location": "Near the Mall",
+    "price": "$7/hr",
+    "distance": "3.5km",
+    "category": "NearBy Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "5",
+    "coordinates": { "latitude": 6.57991, "longitude": 0.53271 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 5",
+    "location": "Airport Parking",
+    "price": "$8/hr",
+    "distance": "6.0km",
+    "category": "Far Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "6",
+    "coordinates": { "latitude": 6.6101051, "longitude": 0.473039 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 6",
+    "location": "Market Place",
+    "price": "$9/hr",
+    "distance": "7.2km",
+    "category": "Far Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "7",
+    "coordinates": { "latitude": 6.620331, "longitude": 0.5054691 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 7",
+    "location": "City Center",
+    "price": "$10/hr",
+    "distance": "8.3km",
+    "category": "Far Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "8",
+    "coordinates": { "latitude": 6.614666, "longitude": 0.46924 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 8",
+    "location": "Close to STC Yard",
+    "price": "$5/hr",
+    "distance": "5.0km",
+    "category": "Far Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "9",
+    "coordinates": { "latitude": 6.6401051, "longitude": 0.5254691 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 9",
+    "location": "Business District",
+    "price": "$6/hr",
+    "distance": "4.2km",
+    "category": "NearBy Space",
+    "date": "2024-07-26"
+  },
+  {
+    "id": "10",
+    "coordinates": { "latitude": 6.6501051, "longitude": 0.5354691 },
+    "cardImage": "../../assets/images/image5.jpg",
+    "title": "Parking Spot 10",
+    "location": "University Parking",
+    "price": "$5/hr",
+    "distance": "3.8km",
+    "category": "NearBy Space",
+    "date": "2024-07-26"
+  }
+]
