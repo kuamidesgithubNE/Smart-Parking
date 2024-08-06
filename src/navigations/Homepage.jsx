@@ -49,9 +49,10 @@ const HomeScreen = () => {
     <ScrollView style={styles.homepage}>
       <View style={styles.imageContainer}>
         <ImageBackground
-          source={require("../../assets/images/image5.jpg")}
+          source={require("../../assets/images/parking.jpg")}
           style={styles.background}
         >
+          <View style={styles.imageoverlay} />
           <View style={styles.content}>
             <Text style={styles.text}>Hi, Jerrad</Text>
             <Text style={styles.blog}>Fresh start your parking journey</Text>

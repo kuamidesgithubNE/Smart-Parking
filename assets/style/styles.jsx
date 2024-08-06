@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     padding: 15,
   },
+  imageoverlay: {
+    ...StyleSheet.absoluteFillObject, // Covers the entire ImageBackground
+    backgroundColor: "rgba(0,0,0,0.6)", // Adjust the opacity as needed
+  },
   content: {
     flex: 1,
     justifyContent: "center",
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: "#ddd",
+    color: "#fff",
   },
   blog: {
     color: colors.primary,
@@ -159,9 +163,9 @@ const styles = StyleSheet.create({
     gap: 60,
   },
   profilePic: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 130,
+    height: 130,
+    borderRadius: 100,
     borderColor: colors.accent, // Adding border with accent color
     borderWidth: 2,
   },
@@ -186,14 +190,14 @@ const styles = StyleSheet.create({
   },
   addProfileButton: {
     position: "absolute",
-    bottom: 3,
-    right: -3,
+    bottom: -4,
+    right: -5,
     borderRadius: 30,
     padding: 10,
   },
   addIcon: {
-    width: 31,
-    padding: 5,
+    width: 42,
+    padding: 9,
     backgroundColor: colors.primary,
     borderRadius: 30,
     display: "flex",
@@ -370,7 +374,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: "100%",
     height: "60%",
-    borderRadius: 10,
+    borderRadius: 5,
   },
   title: {
     fontWeight: "500",
@@ -403,7 +407,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   cardListContainer: {
-    marginTop: "120%",
+    marginTop: "130%",
   },
   cardList: {
     paddingBottom: 16,

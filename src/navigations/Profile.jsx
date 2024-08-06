@@ -20,17 +20,17 @@ const ProfileScreen = () => {
             style={styles.profilePic}
           />
           <TouchableOpacity style={styles.addProfileButton}>
-            <Ionicons name="camera-outline" size={20} style={styles.addIcon} />
+            <Ionicons name="camera-outline" size={23} style={styles.addIcon} />
           </TouchableOpacity>
         </View>
         <View>
           <Text style={styles.username}>Jared Benson</Text>
           <View style={styles.location}>
-            <Ionicons name="location" size={25} color={colors.accent} />
+            <Ionicons name="location" size={20} color={"#333"} />
             <Text
               style={{
                 fontWeight: "500",
-                fontSize: 17,
+                fontSize: 15,
                 color: colors.darkGrey,
               }}
             >

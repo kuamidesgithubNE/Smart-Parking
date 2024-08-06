@@ -84,8 +84,8 @@ const MapScreen = () => {
       mapRef.current.animateToRegion(
         {
           ...coordinates,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
         },
         1000
       );

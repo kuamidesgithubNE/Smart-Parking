@@ -9,24 +9,25 @@ import HomeScreen from "./Homepage";
 import BookingsScreen from "./Booking";
 import MapScreen from "./Map";
 import ProfileScreen from "./Profile";
+import OnboardingScreen from "../screens/swipeScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const getHeaderOptions = (title) => ({
   headerTitle: title,
-  headerTitleAlign: "center",
+  headerTitleAlign: "left",
   headerTintColor: colors.primary, // Header text color
   headerTitleStyle: {
     fontWeight: "bold",
     fontSize: 25, // Adjust the font size here
     paddingHorizontal: 10, // Add horizontal padding if needed
   },
-  headerLeft: () => (
-    <TouchableOpacity style={{ marginLeft: 15, padding: 5 }}>
-      <Ionicons name="menu" size={25} color="black" />
-    </TouchableOpacity>
-  ),
+  // headerLeft: () => (
+  //   <TouchableOpacity style={{ marginLeft: 15, padding: 5 }}>
+  //     <Ionicons name="menu" size={25} color="black" />
+  //   </TouchableOpacity>
+  // ),
   headerRight: () => (
     <TouchableOpacity style={{ marginRight: 15, padding: 5 }}>
       <Ionicons name="notifications" size={25} color="black" />
@@ -131,7 +132,13 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="BottomNavigationBar"
+        name="IntroScreen"
+        component={OnboardingScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Main"
         component={BottomNavigationBar}
         options={{ headerShown: false }}
       />
