@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 7,
   },
   categoryTitle: {
-    fontWeight: "800",
-    fontSize: 18,
+    fontWeight: "700",
+    fontSize: 17,
     color: colors.darkGrey,
   },
   categoryLink: {
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 20,
     justifyContent: "center",
-    gap: 60,
+    gap: 40,
   },
   profilePic: {
     width: 130,
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
   },
   detailCard: {
-    width: "90%",
+    width: "100%",
     backgroundColor: colors.secondary,
     borderRadius: 25,
     padding: 15,
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   },
 
   optionCard: {
-    width: "90%",
+    width: "100%",
     backgroundColor: colors.secondary,
     borderRadius: 25,
     padding: 15,
@@ -308,13 +308,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: colors.accent,
+    backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,
+    shadowColor: "#999",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 3,
   },
   datePickerText: {
-    color: "#fff",
+    color: "#000",
     fontSize: 16,
   },
   pickerContainer: {
@@ -360,11 +365,11 @@ const styles = StyleSheet.create({
   card: {
     width: 180,
     height: 190,
-    padding: 3,
+    // padding: 3,
     paddingBottom: 10,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,

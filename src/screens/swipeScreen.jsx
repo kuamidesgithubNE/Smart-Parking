@@ -3,6 +3,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 
+
 const OnboardingScreen = ({ navigation }) => {
   return (
     <Swiper style={styles.wrapper} loop={false}>
@@ -38,11 +39,14 @@ const OnboardingScreen = ({ navigation }) => {
         </Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.replace("Main")}
+          onPress={() => navigation.replace("IntroScreen")}
         >
-          <Text style={styles.buttonText}>Get Started</Text>
+          <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>
+      {/* <View style={styles.slide}>
+        <IntroScreen/>
+      </View> */}
     </Swiper>
   );
 };

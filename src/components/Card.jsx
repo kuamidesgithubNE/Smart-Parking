@@ -6,7 +6,7 @@ const Card = ({ image, title, location, price, distance, onPress }) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
         <Image
-          source={require("../../assets/images/parking6.jpg")}
+          source={require("../../assets/images/parking4.jpg")}
           style={styles.cardImage}
         />
         <Text style={styles.title}>{title}</Text>

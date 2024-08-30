@@ -19,6 +19,7 @@ import MapView, { Marker, Callout } from "react-native-maps";
 import { Picker } from "@react-native-picker/picker"; // For payment method selection
 import styles from "../../assets/style/styles";
 import parkingSpaces from "../../assets/data.json";
+import colors from "../../assets/style/colors";
 
 const BookingScreen = () => {
   const [name, setName] = useState("");
@@ -130,7 +131,7 @@ const BookingScreen = () => {
         style={styles.datePickerButton}
         onPress={() => setShowDatePicker(true)}
       >
-        <Ionicons name="calendar" size={25} color="#fff" />
+        <Ionicons name="calendar" size={25} color={colors.accent} />
         <Text style={styles.datePickerText}>{date.toLocaleDateString()}</Text>
       </TouchableOpacity>
 
@@ -147,7 +148,7 @@ const BookingScreen = () => {
         style={styles.datePickerButton}
         onPress={() => setShowTimePicker(true)}
       >
-        <Ionicons name="time" size={25} color="#fff" />
+        <Ionicons name="time" size={25} color={colors.accent} />
         <Text style={styles.datePickerText}>{time.toLocaleTimeString()}</Text>
       </TouchableOpacity>
 

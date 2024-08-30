@@ -77,7 +77,7 @@ const HomeScreen = () => {
 
       <View>
         <View style={styles.categoryHeader}>
-          <Text style={styles.categoryTitle}>NearBy Space</Text>
+          <Text style={styles.categoryTitle}>Nearby</Text>
           <TouchableOpacity>
             <Text style={styles.categoryLink}>View All</Text>
           </TouchableOpacity>
@@ -95,7 +95,7 @@ const HomeScreen = () => {
 
       <View>
         <View style={styles.categoryHeader}>
-          <Text style={styles.categoryTitle}>Recent Space</Text>
+          <Text style={styles.categoryTitle}>Recent</Text>
           <TouchableOpacity>
             <Text style={styles.categoryLink}>View All</Text>
           </TouchableOpacity>
@@ -110,7 +110,7 @@ const HomeScreen = () => {
         />
       </View>
 
-      <View>
+      {/* <View>
         <View style={styles.categoryHeader}>
           <Text style={styles.categoryTitle}>Available Space</Text>
           <TouchableOpacity>
@@ -125,7 +125,7 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.cardList}
         />
-      </View>
+      </View> */}
     </ScrollView>
   );
 };
