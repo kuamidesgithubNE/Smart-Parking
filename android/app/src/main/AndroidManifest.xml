@@ -13,6 +13,7 @@
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+
   <queries>
     <!-- Support checking for http(s) links via the Linking API -->
     <intent>

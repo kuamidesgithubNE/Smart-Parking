@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,10 +14,12 @@ import colors from "../../assets/style/colors";
 import DetailCard from "../components/ProfileComponents/ProfileDetailCard";
 import OptionsCard from "../components/ProfileComponents/ProfileOptionsCard";
 import ImageUploadModal from "../components/ProfileComponents/UploadModal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [profileImage, setProfileImage] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [user, setUser] = useState(null);
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
@@ -71,6 +73,28 @@ const ProfileScreen = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("user");
+        if (userData) {
+          setUser(JSON.parse(userData));
+        } else {
+          navigation.navigate("LoginScreen");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        navigation.navigate("LoginScreen");
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  // Logged user details
+  const username = user?.username;
+  const email = user?.email;
+  const phone = user?.phone;
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.profileContainer}>
@@ -96,7 +120,7 @@ const ProfileScreen = () => {
             </TouchableOpacity>
           </View>
           <View>
-            <Text style={styles.username}>Jared Benson</Text>
+            <Text style={styles.username}>{username}</Text>
             <View style={styles.location}>
               <Ionicons name="location" size={20} color={"#333"} />
               <Text
@@ -122,7 +146,7 @@ const ProfileScreen = () => {
             </TouchableOpacity>
           </View>
 
-          <DetailCard />
+          <DetailCard email={email} phone={phone} />
         </View>
 
         {/* for the option cards */}

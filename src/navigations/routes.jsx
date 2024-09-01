@@ -1,7 +1,16 @@
+import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Text, View, TouchableOpacity, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../../assets/style/colors";
 
 // Importing the screens here
@@ -15,32 +24,18 @@ import LoginScreen from "../screens/AuthScreen/Login";
 import SignupScreen from "../screens/AuthScreen/Register";
 import AuthLoadingScreen from "../screens/AuthScreen/AuthScreen";
 
+// Create Bottom Tab and Stack Navigators
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const getHeaderOptions = (name, location) => ({
+// Header options function
+const getHeaderOptions = (username, location) => ({
   headerTitle: () => (
-    <SafeAreaView
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        // paddingVertical: 20,
-      }}
-    >
-      <View style={{ paddingVertical: 10 }}>
-        <Text style={{ fontWeight: "bold", fontSize: 20, color: colors.dark }}>
-          {name}
-        </Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text
-            style={{
-              fontSize: 14,
-              color: "#555",
-              fontWeight: 500,
-            }}
-          >
-            {location}
-          </Text>
+    <SafeAreaView style={styles.headerContainer}>
+      <View style={styles.headerTitleContainer}>
+        <Text style={styles.headerTitle}>{username}</Text>
+        <View style={styles.headerLocationContainer}>
+          <Text style={styles.headerLocation}>{location}</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -48,66 +43,52 @@ const getHeaderOptions = (name, location) => ({
   headerTitleAlign: "left",
   headerTintColor: colors.primary,
   headerRight: () => (
-    <TouchableOpacity
-      style={{
-        marginRight: 15,
-        padding: 7,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderRadius: 5,
-      }}
-    >
-      <Ionicons name="notifications" size={25} color={colors.primary} />
+    <TouchableOpacity style={styles.headerRightButton}>
+      <Ionicons name="notifications" size={25} color="#fff" />
     </TouchableOpacity>
   ),
 });
 
+// HomeStack Navigator
 function HomeStack() {
+  const [username, setUsername] = useState("User"); // Default username or empty
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("user");
+        if (userData) {
+          const parsedData = JSON.parse(userData);
+          setUsername(parsedData.username);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <Stack.Navigator
-      screenOptions={getHeaderOptions("Jared  Benson! 👋", "Ho, Volta Region")}
+      screenOptions={{
+        ...getHeaderOptions(username, "Ho, Volta Region"),
+        headerLeft: null,
+        headerStyle: {
+          backgroundColor: colors.primary,
+          borderBottomRightRadius: 10,
+        },
+        headerTitleStyle: {
+          color: colors.white,
+        },
+      }}
     >
       <Stack.Screen name="HomeMain" component={HomeScreen} />
     </Stack.Navigator>
   );
 }
 
-// function BookingStack() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="BookingMain"
-//         component={BookingsScreen}
-//         options={{ headerShown: false }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
-
-// function MapStack() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="MapMain"
-//         component={MapScreen}
-//         options={{ headerShown: false }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
-
-// function ProfileStack() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="ProfileMain"
-//         component={ProfileScreen}
-//         options={{ headerShown: false }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
-
+// Bottom Navigation Bar
 function BottomNavigationBar() {
   return (
     <View style={{ flex: 1 }}>
@@ -115,7 +96,6 @@ function BottomNavigationBar() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-
             if (route.name === "Home") {
               iconName = focused ? "home" : "home-outline";
             } else if (route.name === "Bookings") {
@@ -125,7 +105,6 @@ function BottomNavigationBar() {
             } else if (route.name === "Profile") {
               iconName = focused ? "person" : "person-outline";
             }
-
             return (
               <Ionicons name={iconName} size={size} color={colors.primary} />
             );
@@ -157,6 +136,7 @@ function BottomNavigationBar() {
   );
 }
 
+// AppNavigator Component
 const AppNavigator = () => {
   return (
     <Stack.Navigator>
@@ -165,13 +145,11 @@ const AppNavigator = () => {
         component={AuthLoadingScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="OnboardingScreen"
         component={OnboardingScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="IntroScreen"
         component={IntroScreen}
@@ -187,7 +165,6 @@ const AppNavigator = () => {
         component={LoginScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="Main"
         component={BottomNavigationBar}
@@ -196,5 +173,33 @@ const AppNavigator = () => {
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headerTitleContainer: {
+    paddingVertical: 10,
+  },
+  headerTitle: {
+    fontWeight: "700",
+    fontSize: 20,
+    color: "#fff",
+  },
+  headerLocationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headerLocation: {
+    fontSize: 14,
+    color: "#fff",
+    fontWeight: "500",
+  },
+  headerRightButton: {
+    marginRight: 15,
+    padding: 7,
+  },
+});
 
 export default AppNavigator;

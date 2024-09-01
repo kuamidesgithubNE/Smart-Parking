@@ -29,27 +29,28 @@ const LoginScreen = () => {
     setMessage("");
     const apiUrl =
       "http://192.168.49.109/SmartPark-Backend/Users/authentication/login.php";
-  
+
     try {
       const postData = JSON.stringify({
         email: email,
         password: password,
       });
-  
+
       console.log("Sending data:", postData); // Debugging line
-  
+
       const response = await axios.post(apiUrl, postData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-  
+
       console.log("Response:", response.data);
-  
+
       if (response.data.success) {
         // Save the token to AsyncStorage
         await AsyncStorage.setItem("token", response.data.token);
-  
+        await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+
         Alert.alert("Success", "Login successful!");
         navigation.replace("Main", { user: response.data.user });
       } else {
@@ -65,7 +66,6 @@ const LoginScreen = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <KeyboardAvoidingView

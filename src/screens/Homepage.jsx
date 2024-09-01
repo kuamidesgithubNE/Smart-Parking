@@ -1,49 +1,90 @@
 import {
   View,
   Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  Button,
-  KeyboardAvoidingView,
-  Platform,
+  ImageBackground,
   TouchableOpacity,
   FlatList,
-  ImageBackground,
-  SafeAreaView,
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import styles from "../../assets/style/styles";
-import colors from "../../assets/style/colors";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 import Card from "../components/Card";
-import parkingData from "../../assets/data.json";
+import styles from "../../assets/style/styles";
 
-const HomeScreen = () => {
-  const [data, setData] = useState([]);
+const HomeScreen = ({ navigation }) => {
+  const [parkingSpaces, setParkingSpaces] = useState([]);
   const [filterData, setFilterData] = useState([]);
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Filter the data to include only 'NearBy Space' categories
-    const filteredData = parkingData.filter(
-      (item) => item.category === "NearBy Space"
-    );
-    setFilterData(filteredData);
+    const fetchParkingSpaces = async () => {
+      try {
+        const response = await axios.get(
+          "http://192.168.49.109/SmartPark-Backend/Others/parking_spaces.php"
+        );
+        setParkingSpaces(response.data);
+        setFilterData(response.data); // Update filterData with fetched data
+      } catch (error) {
+        console.error("Error fetching parking spaces:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // For all the data
-    setData(parkingData);
+    fetchParkingSpaces();
   }, []);
 
   const renderItem = ({ item }) => (
     <Card
-      image={item.cardImage}
+      image={{ uri: `data:image/jpeg;base64,${item.image}` }} // Use image from API
       title={item.title}
       location={item.location}
-      price={item.price}
-      distance={item.distance}
+      price={`$${item.price}`}
+      distance={`${calculateDistance(item.latitude, item.longitude)} km`}
+      onPress={() => console.log("Card pressed")}
     />
   );
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("user");
+        if (userData) {
+          setUser(JSON.parse(userData));
+        } else {
+          navigation.navigate("LoginScreen");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        navigation.navigate("LoginScreen");
+      }
+    };
+
+    fetchUserData();
+  }, [navigation]);
+
+  const calculateDistance = (latitude, longitude) => {
+    const userLatitude = 1.0; // Replace with actual user's latitude
+    const userLongitude = 1.0; // Replace with actual user's longitude
+
+    const distance = Math.sqrt(
+      Math.pow(latitude - userLatitude, 2) +
+        Math.pow(longitude - userLongitude, 2)
+    );
+
+    return distance.toFixed(2); // Returns distance in km
+  };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.homepage}>
@@ -54,7 +95,7 @@ const HomeScreen = () => {
         >
           <View style={styles.imageoverlay} />
           <View style={styles.content}>
-            <Text style={styles.text}>Hi, Jerrad</Text>
+            <Text style={styles.text}>Hi, {user.username || "User"}</Text>
             <Text style={styles.blog}>Fresh start your parking journey</Text>
           </View>
         </ImageBackground>
@@ -82,10 +123,9 @@ const HomeScreen = () => {
             <Text style={styles.categoryLink}>View All</Text>
           </TouchableOpacity>
         </View>
-
         <FlatList
           data={filterData}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.space_id.toString()}
           renderItem={renderItem}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -101,31 +141,14 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
         <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
+          data={parkingSpaces} // Use parkingSpaces for the "Recent" section
+          keyExtractor={(item) => item.space_id.toString()}
           renderItem={renderItem}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.cardList}
         />
       </View>
-
-      {/* <View>
-        <View style={styles.categoryHeader}>
-          <Text style={styles.categoryTitle}>Available Space</Text>
-          <TouchableOpacity>
-            <Text style={styles.categoryLink}>View All</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.cardList}
-        />
-      </View> */}
     </ScrollView>
   );
 };
